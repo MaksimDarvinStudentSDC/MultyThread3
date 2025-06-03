@@ -1,0 +1,6 @@
+totalResources=2
+Alice 1500
+Bob 1000
+Charlie 2000
+Diana 1200
+Eve 900
