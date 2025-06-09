@@ -15,10 +15,10 @@ public class TaskLoader {
         List<ResourceAccessTask> tasks = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
-            // Первая строка — количество ресурсов
+            // First line — total resources
             String firstLine = br.readLine();
             if (firstLine == null || !firstLine.startsWith("totalResources=")) {
-                throw new IllegalArgumentException("Файл должен начинаться с totalResources=...");
+                throw new IllegalArgumentException("File must start with totalResources=...");
             }
 
             totalResources = Integer.parseInt(firstLine.split("=")[1].trim());

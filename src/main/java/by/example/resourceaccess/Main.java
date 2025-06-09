@@ -13,26 +13,30 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.concurrent.*;
+
 public class Main {
     public static void main(String[] args) {
-            Path path = Path.of("D:/MultyThread3/src/main/resources/tasks.txt");
+        Path path = Path.of("D:/MultyThread3/src/main/resources/tasks.txt");
 
-            try {
-                TaskLoadResult result = TaskLoader.loadTasks(path);
-                List<Callable<String>> tasks = List.copyOf(result.getTasks());
+        try {
+            TaskLoadResult result = TaskLoader.loadTasks(path);
+            List<Callable<String>> tasks = List.copyOf(result.getTasks());
 
-                ExecutorService executor = Executors.newFixedThreadPool(5);
-                List<Future<String>> results = executor.invokeAll(tasks);
+            ExecutorService executor = Executors.newFixedThreadPool(5);
+            List<Future<String>> results = executor.invokeAll(tasks);
 
-                for (Future<String> resultFuture : results) {
-                    System.out.println(resultFuture.get());
-                }
-
-                executor.shutdown();
-
-            } catch (Exception e) {
-                System.err.println("Ошибка: " + e.getMessage());
-                e.printStackTrace();
+            for (Future<String> future : results) {
+                System.out.println(future.get());
             }
+
+            executor.shutdown();
+
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+}

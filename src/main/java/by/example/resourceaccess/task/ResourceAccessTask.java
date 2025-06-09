@@ -1,7 +1,5 @@
 package by.example.resourceaccess.task;
 
-
-
 import by.example.resourceaccess.monitor.ResourceMonitor;
 
 import java.util.concurrent.Callable;
@@ -24,18 +22,18 @@ public class ResourceAccessTask implements Callable<String> {
     @Override
     public String call() {
         try {
-            logger.info("{} пытается получить ресурс...", name);
+            logger.info("{} is trying to acquire resource...", name);
             monitor.acquire(name);
 
-            logger.info("{} использует ресурс {} мс", name, duration);
+            logger.info("{} is using the resource for {} ms", name, duration);
             TimeUnit.MILLISECONDS.sleep(duration);
 
             monitor.release(name);
-            logger.info("{} освободил ресурс", name);
+            logger.info("{} released the resource", name);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            logger.error("{} был прерван", name);
+            logger.error("{} was interrupted", name);
         }
-        return name + " завершил работу";
+        return name + " finished execution";
     }
 }
